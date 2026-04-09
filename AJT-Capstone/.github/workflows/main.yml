@@ -1,0 +1,39 @@
+name: Build and Test
+
+on: 
+  pull_request: 
+    branches: [ main ]
+
+jobs: 
+  build-and-test: 
+    name: Build Test Lint
+    runs-on: ubuntu-latest  # Virtual machine environment  
+
+    steps: 
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with: 
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Run tests
+        run: npm test --if-present
+
+      - name: Lint
+        run: npm run lint
+
+
+      
+
+
+
+  
