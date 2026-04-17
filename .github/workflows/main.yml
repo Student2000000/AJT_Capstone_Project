@@ -22,18 +22,32 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
+      - name: Lint
+        run: npm run lint
+
       - name: Build
         run: npm run build
 
       - name: Run tests
         run: npm test --if-present
 
-      - name: Lint
-        run: npm run lint
+  security-scan:
+    name: Security Scan  
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
 
-      
+      - name: Install Dependencies
+        run: npm ci
 
+      - name: Run npm audit
+        #fails if the build has high vulnerabilities
+        run: npm audit --audit-level=high
 
-
-  
+#add in database CI/CD when db is setup
