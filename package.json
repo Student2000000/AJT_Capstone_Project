@@ -12,6 +12,9 @@
     "test:headless": "cypress run"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@mantine/core": "^9.1.0",
+    "@mantine/hooks": "^9.1.0",
     "@supabase/supabase-js": "^2.103.3",
     "react": "^19.2.4",
     "react-dom": "^19.2.4"
