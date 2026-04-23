@@ -8,8 +8,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "cypress open",
-    "test:headless": "cypress run"
+    "test": "cypress run",
+    "test:open": "cypress open"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
