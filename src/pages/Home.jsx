@@ -10,15 +10,17 @@ function Home() {
 
     // Fetch products from Supabase on page load
     useEffect(() => {
-        getProducts()
-            .then(data => {
+        const fetchProducts = async () => {
+            try {
+                const data = await getProducts()
                 setProducts(data)
-                setLoading(false)
-            })
-            .catch(err => {
+            } catch (err) {
                 setError(err.message)
-                setLoading(false)
-            })
+            }
+            setLoading(false)
+        }
+
+        fetchProducts()
     }, [])
 
     // Show loading spinner while fetching

@@ -1,12 +1,14 @@
 /* Global styles for NSC Merch Store */
 
 body {
+  /* Removes default browser spacing around page edges */
   margin: 0;
-  font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+
+  /* Sets default font with fallback if unavailable */
+  font-family: system-ui, sans-serif;
 }
 
 #root {
+  /* Makes app container at least full viewport height */
   min-height: 100vh;
 }
