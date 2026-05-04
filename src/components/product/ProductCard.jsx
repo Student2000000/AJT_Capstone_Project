@@ -7,6 +7,7 @@ function ProductCard({ product }) {
         // shadow="sm" adds subtle box shadow, padding="lg" adds inner spacing
         // radius="md" rounds corners, withBorder adds 1px border
         <Card shadow="sm" padding="lg" radius="md" withBorder>
+            {/* Product image */}
             {/* Card.Section makes content span full card width (no padding) */}
             <Card.Section>
                 {/* height={200} sets fixed image height */}
@@ -19,27 +20,32 @@ function ProductCard({ product }) {
                 />
             </Card.Section>
 
+            {/* Category label */}
             {/* c="dimmed" sets gray text color, size="xs" makes text small */}
             {/* tt="uppercase" transforms text to uppercase, mt="md" adds margin-top */}
             <Text c="dimmed" size="xs" tt="uppercase" mt="md">
                 {product.category}
             </Text>
 
+            {/* Product name */}
             {/* fw={500} sets font-weight (medium bold) */}
             <Text fw={500} size="lg" mt={4}>
                 {product.name}
             </Text>
 
+            {/* Price */}
             {/* mt={4} adds 4px margin-top (can use numbers or size strings) */}
             <Text c="dark" size="md" mt={4}>
                 ${product.price}
             </Text>
 
+            {/* Stock badge */}
             {/* color sets badge background color */}
             <Badge mt="sm" color={inStock ? 'green' : 'red'}>
                 {inStock ? `${product.inventory_count} in stock` : 'Out of stock'}
             </Badge>
 
+            {/* Add to cart button */}
             {/* fullWidth stretches button to fill container */}
             {/* disabled grays out button and prevents clicks */}
             <Button fullWidth mt="md" disabled={!inStock}>
