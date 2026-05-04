@@ -1,7 +1,20 @@
 import { Card, Text, Badge, Button, Image } from '@mantine/core'
 
 function ProductCard({ product }) {
-    const inStock = product.inventory_count > 0
+    const stock = product.inventory_count
+
+    // Determine stock status and badge color
+    const getStockBadge = () => {
+        if (stock === 0) {
+            return { color: 'red', label: 'Out of stock' }
+        } else if (stock <= 5) {
+            return { color: 'yellow', label: `Low stock (${stock} left)` }
+        } else {
+            return { color: 'green', label: `${stock} in stock` }
+        }
+    }
+
+    const stockBadge = getStockBadge()
 
     return (
         // shadow="sm" adds subtle box shadow, padding="lg" adds inner spacing
@@ -40,15 +53,15 @@ function ProductCard({ product }) {
             </Text>
 
             {/* Stock badge */}
-            {/* color sets badge background color */}
-            <Badge mt="sm" color={inStock ? 'green' : 'red'}>
-                {inStock ? `${product.inventory_count} in stock` : 'Out of stock'}
+            {/* color sets badge background color (green, yellow, or red based on stock level) */}
+            <Badge mt="sm" color={stockBadge.color}>
+                {stockBadge.label}
             </Badge>
 
             {/* Add to cart button */}
             {/* fullWidth stretches button to fill container */}
             {/* disabled grays out button and prevents clicks */}
-            <Button fullWidth mt="md" disabled={!inStock}>
+            <Button fullWidth mt="md" disabled={stock === 0}>
                 Add to Cart
             </Button>
         </Card>
