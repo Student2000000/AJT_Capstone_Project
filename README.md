@@ -91,6 +91,12 @@ cypress/
 ## Testing
 This project uses Cypress for end-to-end testing.
 
+**Before Running tests**
+```
+npm install
+npm run dev
+```
+
 **Run tests with GUI:**
 ```
 npm run test
