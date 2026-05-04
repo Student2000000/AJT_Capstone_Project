@@ -93,12 +93,12 @@ This project uses Cypress for end-to-end testing.
 
 **Run tests with GUI:**
 ```
-npm run test:open
+npm run test
 ```
 
 **Run tests headlessly (CI):**
 ```
-npm run test
+npm run test:ci
 ```
 
 ## Future Enhancements
