@@ -12,6 +12,7 @@ function ProductGrid({ products }) {
                 { maxWidth: 'md', cols: 2 },
                 { maxWidth: 'sm', cols: 1 }
             ]}
+            data-testid="product-grid"
         >
             {products.map(product => (
                 <ProductCard key={product.id} product={product} />

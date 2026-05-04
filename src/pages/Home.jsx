@@ -30,7 +30,7 @@ function Home() {
             // h={400} sets height to 400px
             <Center h={400}>
                 {/* size="lg" makes the spinner larger */}
-                <Loader size="lg" />
+                <Loader size="lg" data-testid="loader" />
             </Center>
         )
     }
