@@ -29,7 +29,13 @@ jobs:
         run: npm run build
 
       - name: Run tests
-        run: npm test --if-present
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+        run: |
+          npm run dev &
+          npx wait-on http://localhost:5173
+          npm run test:ci
 
   security-scan:
     name: Security Scan  
