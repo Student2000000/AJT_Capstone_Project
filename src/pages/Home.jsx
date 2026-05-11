@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { Container, Title, Text, Loader, Center } from '@mantine/core'
 import { getProducts } from '../services/products'
 import ProductGrid from '../components/product/ProductGrid'
+import SearchBar from '../components/common/SearchBar'
+import Navbar from '../components/common/Navbar'
 
 function Home() {
     const [products, setProducts] = useState([])
@@ -52,6 +54,12 @@ function Home() {
             <Title order={1} mb="xs">Featured Products</Title>
             {/* c="dimmed" sets gray text, mb="xl" adds large margin-bottom */}
             <Text c="dimmed" mb="xl">Show your school spirit with our exclusive collection</Text>
+
+            {/* Searchbar */}
+            <SearchBar> </SearchBar>
+
+            {/* Navbar */}
+            <Navbar> </Navbar>
 
             {/* Product grid */}
             <ProductGrid products={products} />
