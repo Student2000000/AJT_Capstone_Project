@@ -1,25 +1,31 @@
 import { Card, Text, Badge, Button, Image } from '@mantine/core'
+import { useNavigate } from 'react-router-dom'
+import { isCompletelyOutOfStock } from '../../services/products'
 
 function ProductCard({ product }) {
-    const stock = product.inventory_count
+    // useNavigate hook for programmatic navigation
+    const navigate = useNavigate()
 
-    // Determine stock status and badge color
-    const getStockBadge = () => {
-        if (stock === 0) {
-            return { color: 'red', label: 'Out of stock' }
-        } else if (stock <= 5) {
-            return { color: 'yellow', label: `Low stock (${stock} left)` }
-        } else {
-            return { color: 'green', label: `${stock} in stock` }
-        }
+    // Check if product is completely out of stock (all variants have 0 inventory)
+    const outOfStock = isCompletelyOutOfStock(product)
+
+    // Handle card click - navigate to product detail page
+    const handleClick = () => {
+        navigate(`/product/${product.id}`)
     }
-
-    const stockBadge = getStockBadge()
 
     return (
         // shadow="sm" adds subtle box shadow, padding="lg" adds inner spacing
         // radius="md" rounds corners, withBorder adds 1px border
-        <Card shadow="sm" padding="lg" radius="md" withBorder data-testid="product-card">
+        <Card
+            shadow="sm"
+            padding="lg"
+            radius="md"
+            withBorder
+            data-testid="product-card"
+            style={{ cursor: 'pointer' }}
+            onClick={handleClick}
+        >
             {/* Product image */}
             {/* Card.Section makes content span full card width (no padding) */}
             <Card.Section>
@@ -52,17 +58,26 @@ function ProductCard({ product }) {
                 ${product.price}
             </Text>
 
-            {/* Stock badge */}
-            {/* color sets badge background color (green, yellow, or red based on stock level) */}
-            <Badge mt="sm" color={stockBadge.color} data-testid="stock-badge">
-                {stockBadge.label}
-            </Badge>
+            {/* Stock badge - only show if completely out of stock */}
+            {outOfStock && (
+                <Badge mt="sm" color="red" data-testid="stock-badge">
+                    Out of Stock
+                </Badge>
+            )}
 
-            {/* Add to cart button */}
+            {/* View Options button */}
             {/* fullWidth stretches button to fill container */}
             {/* disabled grays out button and prevents clicks */}
-            <Button fullWidth mt="md" disabled={stock === 0}>
-                Add to Cart
+            <Button
+                fullWidth
+                mt="md"
+                disabled={outOfStock}
+                onClick={(e) => {
+                    e.stopPropagation() // Prevent card click from also firing
+                    navigate(`/product/${product.id}`)
+                }}
+            >
+                {outOfStock ? 'Out of Stock' : 'View Options'}
             </Button>
         </Card>
     )
