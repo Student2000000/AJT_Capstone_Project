@@ -69,15 +69,22 @@ describe('ProductView - Variant Selection', () => {
     })
 
     it('allows selecting a different size', () => {
-        // Click on size M
-        cy.contains('button', 'M').click()
+        // S is initially selected (auto-selected on page load)
+        // Click M and verify the SKU changes (proves selection worked)
 
-        // .should('have.css', 'property') checks the element's CSS
-        // .and() chains another assertion on the same element
-        // This verifies the button has a background color (not transparent)
-        // which indicates it's in the selected/filled state
-        cy.contains('button', 'M').should('have.css', 'background-color')
-            .and('not.equal', 'rgba(0, 0, 0, 0)')
+        // Wait for page to fully load
+        cy.contains('You May Also Like').should('be.visible')
+
+        // Get the initial SKU value from the table row
+        // The SKU row has two cells: "SKU" label and the actual value
+        cy.contains('tr', 'SKU').invoke('text').then((initialRow) => {
+            // Click on size M
+            cy.contains('button', 'M').click()
+
+            // Verify SKU row text changed (proves the size selection took effect)
+            // cy.contains('tr', 'SKU') finds the table row containing "SKU"
+            cy.contains('tr', 'SKU').invoke('text').should('not.equal', initialRow)
+        })
     })
 
     it('updates SKU when variant is selected', () => {
