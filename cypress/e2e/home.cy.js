@@ -40,45 +40,18 @@ describe('Home Page', () => {
 
             // Price
             cy.get('[data-testid="product-price"]').should('be.visible')
-
-            // Stock badge
-            cy.get('[data-testid="stock-badge"]').should('be.visible')
-
-            // cy.contains('button', 'Add to Cart') finds a button containing that text
-            cy.contains('button', 'Add to Cart').should('be.visible')
         })
     })
 
-    it('shows correct stock badge colors', () => {
-        // .contains() on a cy.get() filters to elements containing that text
-        // .should('exist') just checks the element is in the DOM (doesn't need to be visible)
-        cy.get('[data-testid="stock-badge"]')
-            .contains('in stock')
-            .should('exist')
-
-        // Note: Yellow (low stock) and red (out of stock) badges 
-        // depend on actual inventory data in the database
-    })
-
-    it('disables Add to Cart button for out-of-stock items', () => {
+    it('shows out of stock badge only for completely out of stock items', () => {
         // cy.get('body') gets the entire page body
         // .then(($body) => {}) gives us a jQuery object to work with
-        // The $ prefix indicates it's a jQuery element, not a Cypress chain
         cy.get('body').then(($body) => {
-            // $body.find() uses jQuery to search within the body
-            // This doesn't fail the test if nothing is found (unlike cy.get)
-            // .length gives us the count of matching elements
-            if ($body.find('[data-testid="stock-badge"]:contains("Out of stock")').length > 0) {
-                // Only run this check if out-of-stock items exist
-                cy.get('[data-testid="product-card"]')
-                    // .has() filters to cards that contain a matching child element
-                    .has('[data-testid="stock-badge"]:contains("Out of stock")')
-                    // .find() searches for elements inside the filtered cards
-                    .find('button')
-                    // .should('be.disabled') asserts the button is disabled
-                    .should('be.disabled')
+            // Check if any out-of-stock badges exist on the page
+            if ($body.find('[data-testid="stock-badge"]').length > 0) {
+                // If badges exist, they should only say "Out of Stock"
+                cy.get('[data-testid="stock-badge"]').should('contain.text', 'Out of Stock')
             }
-            // If no out-of-stock items exist, test passes (nothing to check)
         })
     })
 

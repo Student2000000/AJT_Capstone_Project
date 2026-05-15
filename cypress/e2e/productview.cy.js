@@ -16,10 +16,12 @@ describe('ProductView Page', () => {
         // Price should be visible (starts with $)
         cy.contains('$').should('be.visible')
 
-        // Category label should be visible
-        cy.get('body').should('contain.text', 'apparel')
-            .or('contain.text', 'accessories')
-            .or('contain.text', 'stationery')
+        // Category label should be visible (uppercase text like APPAREL, ACCESSORIES, etc.)
+        // .invoke('text') gets all text content from the element
+        // .should('match', /regex/) checks if the text matches the pattern
+        // The | in regex means "or", so this checks for any of the three categories
+        // The 'i' flag makes it case-insensitive (matches "apparel", "APPAREL", etc.)
+        cy.get('body').invoke('text').should('match', /APPAREL|ACCESSORIES|STATIONERY/i)
     })
 
     it('displays product image', () => {
@@ -46,7 +48,8 @@ describe('ProductView - Variant Selection', () => {
         // Visit a product that has variants (apparel has size + color)
         cy.visit('/')
 
-        // Click on a product card that contains "Hoodie" or similar apparel
+        // cy.contains('[selector]', 'text') finds an element matching the selector that contains the text
+        // This clicks the product card that has "Hoodie" in it
         cy.contains('[data-testid="product-card"]', 'Hoodie').click()
     })
 
@@ -69,8 +72,10 @@ describe('ProductView - Variant Selection', () => {
         // Click on size M
         cy.contains('button', 'M').click()
 
-        // M button should now be filled (selected state)
-        // Mantine filled buttons have a different background
+        // .should('have.css', 'property') checks the element's CSS
+        // .and() chains another assertion on the same element
+        // This verifies the button has a background color (not transparent)
+        // which indicates it's in the selected/filled state
         cy.contains('button', 'M').should('have.css', 'background-color')
             .and('not.equal', 'rgba(0, 0, 0, 0)')
     })
@@ -94,8 +99,9 @@ describe('ProductView - Stock Indicators', () => {
         // Find and click on a product (we'll check if low stock appears)
         cy.get('[data-testid="product-card"]').first().click()
 
-        // If a low stock variant is selected, badge should appear
-        // This test just verifies the badge styling exists when present
+        // Use jQuery to check if low stock badge exists without failing test
+        // .mantine-Badge-root is the CSS class Mantine adds to Badge components
+        // :contains("Only") is a jQuery selector that matches elements containing that text
         cy.get('body').then(($body) => {
             if ($body.find('.mantine-Badge-root:contains("Only")').length > 0) {
                 cy.contains('Only').should('be.visible')
@@ -128,7 +134,9 @@ describe('ProductView - Related Products', () => {
     })
 
     it('shows related product cards', () => {
-        // Related products section should have product cards
+        // .parent() gets the parent element of "You May Also Like" heading
+        // .find() searches within that parent for product cards
+        // This ensures we're only looking at cards in the related products section
         cy.contains('You May Also Like')
             .parent()
             .find('[data-testid="product-card"]')
@@ -136,7 +144,8 @@ describe('ProductView - Related Products', () => {
     })
 
     it('navigates to a different product when clicking related product', () => {
-        // Get the current URL
+        // cy.url() gets the current page URL
+        // .then() lets us store it in a variable to compare later
         cy.url().then((originalUrl) => {
             // Click a related product
             cy.contains('You May Also Like')
@@ -145,7 +154,7 @@ describe('ProductView - Related Products', () => {
                 .first()
                 .click()
 
-            // URL should change to a different product
+            // Verify we navigated to a different product page
             cy.url().should('not.equal', originalUrl)
             cy.url().should('include', '/product/')
         })
