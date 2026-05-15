@@ -1,29 +1,12 @@
 import { Text, Table } from '@mantine/core'
 
-// Default details by category
-const categoryDetails = {
-    apparel: {
-        'Material': '80% Cotton, 20% Polyester',
-        'Fit': 'Regular Fit',
-        'Care': 'Machine wash cold'
-    },
-    accessories: {
-        'Material': 'Various',
-        'Care': 'See product label'
-    },
-    stationery: {
-        'Material': 'Paper/Plastic',
-        'Care': 'Keep dry'
-    }
-}
-
 function ProductDetails({ product, selectedVariant }) {
-    // Get default details based on category
-    const defaults = categoryDetails[product.category] || {}
-
-    // Build details object - add SKU if a variant is selected
+    // Build details object from product data
+    // Falls back to 'N/A' if no value exists in database
     const details = {
-        ...defaults,
+        'Material': product.material || 'N/A',
+        'Care': product.care || 'N/A',
+        // Add SKU if a variant is selected
         ...(selectedVariant?.sku && { 'SKU': selectedVariant.sku })
     }
 
@@ -31,16 +14,19 @@ function ProductDetails({ product, selectedVariant }) {
         <div>
             <Text fw={500} mb="sm">Product Details</Text>
 
-            {/* Table displays details in a clean two-column format */}
+            {/* Mantine Table structure: Table > Table.Tbody > Table.Tr > Table.Td */}
+            {/* Tbody = table body, Tr = table row, Td = table cell */}
             <Table>
                 <Table.Tbody>
+                    {/* Loop through details object, each entry becomes a row */}
+                    {/* Object.entries converts { Material: 'Cotton' } to ['Material', 'Cotton'] */}
                     {Object.entries(details).map(([label, value]) => (
                         <Table.Tr key={label}>
-                            {/* First column: label */}
+                            {/* Left cell: the label (Material, Care, SKU) */}
                             <Table.Td style={{ width: '120px' }}>
                                 <Text c="dimmed" size="sm">{label}</Text>
                             </Table.Td>
-                            {/* Second column: value */}
+                            {/* Right cell: the value */}
                             <Table.Td>
                                 <Text size="sm">{value}</Text>
                             </Table.Td>
