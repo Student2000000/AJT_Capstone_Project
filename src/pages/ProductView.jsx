@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 import { Container, Grid, Loader, Center, Text, Button, Badge, Group } from '@mantine/core'
 import { getProductById, findVariant, getAvailableSizes, getAvailableColors } from '../services/products'
@@ -21,13 +21,12 @@ function ProductView() {
     // Selected variant state
     const [selectedSize, setSelectedSize] = useState(null)
     const [selectedColor, setSelectedColor] = useState(null)
-    const [selectedVariant, setSelectedVariant] = useState(null)
 
     // Cart action state
     const [adding, setAdding] = useState(false)
     const [addedMessage, setAddedMessage] = useState(null)
 
-    // Fetch product data on mount or when ID changes
+    // Fetch product data on mount
     useEffect(() => {
         const fetchProduct = async () => {
             try {
@@ -49,12 +48,13 @@ function ProductView() {
         fetchProduct()
     }, [id])
 
-    // Update selected variant when size or color changes
-    useEffect(() => {
+    // useMemo caches the result and only recalculates when dependencies change
+    // This avoids storing selectedVariant in state since it's derived from other state
+    const selectedVariant = useMemo(() => {
         if (product && product.variants) {
-            const variant = findVariant(product.variants, selectedSize, selectedColor)
-            setSelectedVariant(variant)
+            return findVariant(product.variants, selectedSize, selectedColor)
         }
+        return null
     }, [product, selectedSize, selectedColor])
 
     // Handle add to cart
@@ -67,7 +67,7 @@ function ProductView() {
             setAddedMessage('Added to cart!')
             // Clear message after 2 seconds
             setTimeout(() => setAddedMessage(null), 2000)
-        } catch (err) {
+        } catch {
             setAddedMessage('Failed to add to cart')
         }
         setAdding(false)

@@ -1,4 +1,4 @@
-import { Card, Text, Badge, Button, Image } from '@mantine/core'
+import { Card, Text, Badge, Image } from '@mantine/core'
 import { useNavigate } from 'react-router-dom'
 import { isCompletelyOutOfStock } from '../../services/products'
 
@@ -64,21 +64,6 @@ function ProductCard({ product }) {
                     Out of Stock
                 </Badge>
             )}
-
-            {/* View Options button */}
-            {/* fullWidth stretches button to fill container */}
-            {/* disabled grays out button and prevents clicks */}
-            <Button
-                fullWidth
-                mt="md"
-                disabled={outOfStock}
-                onClick={(e) => {
-                    e.stopPropagation() // Prevent card click from also firing
-                    navigate(`/product/${product.id}`)
-                }}
-            >
-                {outOfStock ? 'Out of Stock' : 'View Options'}
-            </Button>
         </Card>
     )
 }
