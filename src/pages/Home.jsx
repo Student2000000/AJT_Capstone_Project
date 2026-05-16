@@ -3,7 +3,7 @@ import { Container, Title, Text, Loader, Center } from '@mantine/core'
 import { getProducts } from '../services/products'
 import ProductGrid from '../components/product/ProductGrid'
 import SearchBar from '../components/common/SearchBar'
-import Navbar from '../components/common/Navbar'
+import CategoryFilter from '../components/common/CategoryFilter'
 
 function Home() {
     const [products, setProducts] = useState([])
@@ -58,8 +58,9 @@ function Home() {
             {/* Searchbar */}
             <SearchBar> </SearchBar>
 
-            {/* Navbar */}
-            <Navbar> </Navbar>
+            {/* Category Filter */}
+           <CategoryFilter> </CategoryFilter>
+            
 
             {/* Product grid */}
             <ProductGrid products={products} />

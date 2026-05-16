@@ -1,6 +1,6 @@
 import { Grid, Button, Box, Text } from '@mantine/core'
 
-function Navbar() {
+function CategoryFilter() {
     return(
         // pb="md" just makes the spacing match the style in theme.spcing
         <Box pb="md">
@@ -18,4 +18,4 @@ function Navbar() {
         </Box>
     )
 } 
-export default Navbar;
+export default CategoryFilter;
