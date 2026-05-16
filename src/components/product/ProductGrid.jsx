@@ -3,15 +3,11 @@ import ProductCard from './ProductCard'
 
 function ProductGrid({ products }) {
     return (
-        // cols={3} sets 3 columns, spacing="lg" adds gap between cards
-        // breakpoints adjust columns for smaller screens
+        // cols sets base columns, spacing="lg" adds gap between cards
+        // Responsive cols: 1 on mobile, 2 on small, 3 on medium+
         <SimpleGrid
-            cols={3}
+            cols={{ base: 1, sm: 2, md: 3 }}
             spacing="lg"
-            breakpoints={[
-                { maxWidth: 'md', cols: 2 },
-                { maxWidth: 'sm', cols: 1 }
-            ]}
             data-testid="product-grid"
         >
             {products.map(product => (

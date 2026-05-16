@@ -25,7 +25,7 @@ AJT is a diverse group of 3 students in their senior year of North Seattle Colle
 * Tinisha - Developer
 
 ## Tech Stack
-* Frontend: React 19, Vite, Mantine UI
+* Frontend: React 19, Vite, Mantine UI, React Router
 * Backend: Supabase (PostgreSQL + Auth + REST API)
 * Testing: Cypress
 * Tooling: ESLint, modern ES modules
