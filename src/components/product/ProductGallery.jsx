@@ -16,6 +16,7 @@ function ProductGallery({ product }) {
                 src={selectedImage}
                 alt={product.name}
                 height={400}
+                fit="contain"
                 radius="md"
                 fallbackSrc="https://placehold.co/400x400?text=No+Image"
                 style={{ border: '1px solid #dee2e6' }}
