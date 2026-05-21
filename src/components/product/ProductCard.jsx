@@ -35,6 +35,7 @@ function ProductCard({ product }) {
                     src={product.image_url}
                     alt={product.name}
                     height={200}
+                    fit="contain"
                     fallbackSrc="https://placehold.co/400x400?text=No+Image"
                 />
             </Card.Section>
