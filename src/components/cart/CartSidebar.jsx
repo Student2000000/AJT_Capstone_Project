@@ -7,18 +7,18 @@ import CartCard from './CartCard';
 export default function CartSidebar({ opened, onClose }) {
     const [items, setItems] = useState([]);
 
-    async function loadCart() {
-        try {
-        const data = await getCartItems();
-        setItems(data || []);
-        } catch (err) {
-            console.error(err);
-        }
-    }
-
     useEffect(() => {
+        async function fetchCart() {
+            try {
+                const data = await getCartItems();
+                setItems(data || []);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
         if (opened) {
-            loadCart();
+            fetchCart();
         }
     }, [opened]);
 
@@ -43,6 +43,6 @@ export default function CartSidebar({ opened, onClose }) {
                     )}
                 </Stack>
             </Drawer>
-    )
+    );
 }
 
