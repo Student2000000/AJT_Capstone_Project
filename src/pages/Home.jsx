@@ -1,14 +1,19 @@
 import { useEffect, useState } from 'react'
-import { Container, Title, Text, Loader, Center } from '@mantine/core'
+import { Container, Title, Text, Loader, Center, ActionIcon, Flex } from '@mantine/core'
 import { getProducts } from '../services/products'
+import { FaShoppingCart } from 'react-icons/fa';
+
 import ProductGrid from '../components/product/ProductGrid'
 import CategoryFilter from '../components/common/CategoryFilter'
 import SearchBar from '../components/common/SearchBar'
+import CartSidebar from '../components/cart/CartSidebar';
 
 function Home() {
     const [products, setProducts] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
+
+    const [cartOpened, setCartOpened] = useState(false);
 
     // Fetch products from Supabase on page load
     useEffect(() => {
@@ -50,6 +55,26 @@ function Home() {
 
     return (
         <Container size="lg" py="xl">
+
+            {/*Button for cart side pannel*/}
+            <ActionIcon 
+                variant="filled"
+                size="lg"
+                pos="absolute"
+                top={10}
+                right={10}
+                data-testid="cart-button"
+     
+                onClick={() => setCartOpened(true)}
+            >
+                <FaShoppingCart size={18} />
+            </ActionIcon>
+
+            <CartSidebar
+                opened={cartOpened}
+                onClose={() => setCartOpened(false)}
+            />
+
             {/* order={1} renders as h1, mb="xs" adds small margin-bottom */}
             <Title order={1} mb="xs">Featured Products</Title>
             {/* c="dimmed" sets gray text, mb="xl" adds large margin-bottom */}
@@ -60,7 +85,7 @@ function Home() {
 
             {/*Search bar*/}
             <SearchBar> </SearchBar>
-
+        
             {/* Product grid */}
             <ProductGrid products={products} />
         </Container>
