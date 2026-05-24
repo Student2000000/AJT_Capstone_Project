@@ -60,13 +60,13 @@ function Home() {
             <ActionIcon 
                 variant="filled"
                 size="lg"
-                //pos="absolute"
+                pos="absolute"
                 top={10}
-                left={10}
+                right={10}
      
                 onClick={() => setCartOpened(true)}
             >
-                <FaShoppingCart size={22} />
+                <FaShoppingCart size={18} />
             </ActionIcon>
 
             <CartSidebar
