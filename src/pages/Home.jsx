@@ -63,6 +63,7 @@ function Home() {
                 pos="absolute"
                 top={10}
                 right={10}
+                data-testid="cart-button"
      
                 onClick={() => setCartOpened(true)}
             >

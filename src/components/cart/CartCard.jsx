@@ -24,12 +24,12 @@ export default function CartCard({ item }) {
             </Text>
 
             {/* Cart Product Color*/}
-            <Text c="dark" size="md" mt={4} data-testid="cart-product-price">
+            <Text c="dark" size="md" mt={4} data-testid="cart-product-color">
                 Color: {item.product_variants.color}
             </Text>
 
             {/* Cart Product Size*/}
-            <Text c="dark" size="md" mt={4} data-testid="cart-product-price">
+            <Text c="dark" size="md" mt={4} data-testid="cart-product-size">
                 Size: {item.product_variants.size}
             </Text>
             
