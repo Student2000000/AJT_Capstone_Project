@@ -7,12 +7,6 @@ import CartCard from './CartCard';
 export default function CartSidebar({ opened, onClose }) {
     const [items, setItems] = useState([]);
 
-    useEffect(() => {
-        if (opened) {
-            loadCart();
-        }
-    }, [opened]);
-
     async function loadCart() {
         try {
         const data = await getCartItems();
@@ -21,6 +15,12 @@ export default function CartSidebar({ opened, onClose }) {
             console.error(err);
         }
     }
+
+    useEffect(() => {
+        if (opened) {
+            loadCart();
+        }
+    }, [opened]);
 
     return (
             <Drawer
