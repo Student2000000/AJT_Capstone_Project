@@ -89,7 +89,7 @@ function Home() {
             {/* order={1} renders as h1, mb="xs" adds small margin-bottom */}
             <Title order={1} mb="xs">Featured Products</Title>
             {/* c="dimmed" sets gray text, mb="xl" adds large margin-bottom */}
-            <Text c="dimmed" mb="xl">Show your school spirit with our exclusive collection</Text>
+            <Text c="dimmed" mb="xl">Shop our exclusive collection</Text>
 
             {/*Catagory Filter*/}
             <CategoryFilter selectedCategory={selectedCategory} onCategoryChange={setSelectedCategory} />
