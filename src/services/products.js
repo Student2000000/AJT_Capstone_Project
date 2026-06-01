@@ -73,8 +73,8 @@ export async function getProductsByCategory(category, excludeId = null) {
 // Check if ALL variants are out of stock (for Home page badge)
 export function isCompletelyOutOfStock(product) {
     if (!product.variants || product.variants.length === 0) {
-        // Fallback to product-level inventory if no variants
-        return product.inventory_count === 0
+        // No variants means we can't determine stock
+        return true
     }
     return product.variants.every(v => v.inventory_count === 0)
 }

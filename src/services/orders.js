@@ -41,6 +41,15 @@ export async function createOrder() {
 
     if (itemsError) throw itemsError
 
+    // Decrement inventory for each purchased item
+    for (const item of cartItems) {
+        const newCount = item.product_variants.inventory_count - item.quantity
+        await supabase
+            .from('product_variants')
+            .update({ inventory_count: newCount })
+            .eq('id', item.variant_id)
+    }
+
     // Clear the cart after successful order
     await clearCart()
 
