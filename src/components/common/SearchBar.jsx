@@ -22,15 +22,23 @@ function SearchBar({ products }) {
             /*what will exist in the textbox before the use types anything.*/
             placeholder="Search..."
             /*Now using products from database instead of hardcoded list*/
-            data={products.map(p => p.name)}
+            data={(products || []).map(p => p.name)}
             /*Navigate to product page when selected*/
             onOptionSubmit={handleSelect}
             /*Makes sure that clicking the icon passes the focus through the input feild*/
             leftSectionPointerEvents="none"
             /*Somehow adds theme based med padding to the bottom only??*/
             pb="md"
-            /*Limit dropdown to 5 suggestions*/
-            limit={5}
+            /*Only matches from start of words, not middle*/
+            filter={({ options, search }) =>
+                options.filter(option =>
+                    option.value.toLowerCase().split(' ').some(word =>
+                        word.startsWith(search.toLowerCase())
+                    )
+                )
+            }
+            /*Adds shadow to dropdown for better visibility*/
+            comboboxProps={{ shadow: 'md' }}
         />
     );
 }
