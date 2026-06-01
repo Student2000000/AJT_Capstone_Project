@@ -1,13 +1,67 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Container, Title, Text, Loader, Center, Card, Stack, Group, Button, Divider } from '@mantine/core'
-import { getCartItems, calculateCartTotal } from '../services/cart'
+import { Container, Title, Text, Loader, Center, Card, Stack, Group, Button, Divider, Alert } from '@mantine/core'
+import { loadStripe } from '@stripe/stripe-js'
+import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js'
+import { getCartItems, calculateCartTotal, clearCart } from '../services/cart'
+import { supabase } from '../lib/supabase'
+
+// Load Stripe outside of component to avoid recreating on every render
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY)
+
+// Payment form component - must be inside Elements provider
+function PaymentForm({ total, onSuccess }) {
+    const stripe = useStripe()
+    const elements = useElements()
+    const [processing, setProcessing] = useState(false)
+    const [error, setError] = useState(null)
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+
+        if (!stripe || !elements) return
+
+        setProcessing(true)
+        setError(null)
+
+        const { error: submitError } = await stripe.confirmPayment({
+            elements,
+            redirect: 'if_required',
+        })
+
+        if (submitError) {
+            setError(submitError.message)
+            setProcessing(false)
+        } else {
+            onSuccess()
+        }
+    }
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <PaymentElement />
+            {error && (
+                <Alert color="red" mt="md">{error}</Alert>
+            )}
+            <Button
+                type="submit"
+                fullWidth
+                mt="md"
+                loading={processing}
+                disabled={!stripe || !elements}
+            >
+                Pay ${total.toFixed(2)}
+            </Button>
+        </form>
+    )
+}
 
 function Checkout() {
     const navigate = useNavigate()
     const [cartItems, setCartItems] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
+    const [clientSecret, setClientSecret] = useState(null)
 
     // Fetch cart items on page load
     useEffect(() => {
@@ -26,6 +80,34 @@ function Checkout() {
 
     // Calculate total
     const total = cartItems.length > 0 ? calculateCartTotal(cartItems) : 0
+
+    // Create PaymentIntent when cart is loaded
+    useEffect(() => {
+        async function createPaymentIntent() {
+            if (total <= 0) return
+
+            try {
+                const { data, error } = await supabase.functions.invoke('create-payment-intent', {
+                    body: { amount: total }
+                })
+
+                if (error) throw error
+                setClientSecret(data.clientSecret)
+            } catch (err) {
+                setError('Failed to initialize payment: ' + err.message)
+            }
+        }
+
+        if (!loading && cartItems.length > 0) {
+            createPaymentIntent()
+        }
+    }, [loading, cartItems, total])
+
+    // Handle successful payment
+    const handlePaymentSuccess = async () => {
+        await clearCart()
+        navigate('/order-confirmation')
+    }
 
     // Loading state
     if (loading) {
@@ -93,23 +175,28 @@ function Checkout() {
                 </Group>
             </Card>
 
-            {/* Payment section placeholder */}
+            {/* Payment section */}
             <Card withBorder padding="lg" radius="md" mb="lg">
                 <Title order={3} mb="md">Payment</Title>
-                <Text c="dimmed" size="sm">
-                    Payment integration coming soon. This will use Stripe test mode.
+                <Text c="dimmed" size="sm" mb="md">
+                    Test mode — use card 4242 4242 4242 4242
                 </Text>
+
+                {clientSecret ? (
+                    <Elements stripe={stripePromise} options={{ clientSecret }}>
+                        <PaymentForm total={total} onSuccess={handlePaymentSuccess} />
+                    </Elements>
+                ) : (
+                    <Center>
+                        <Loader size="sm" />
+                    </Center>
+                )}
             </Card>
 
-            {/* Action buttons */}
-            <Group justify="space-between">
-                <Button variant="outline" onClick={() => navigate('/')}>
-                    Continue Shopping
-                </Button>
-                <Button disabled>
-                    Place Order
-                </Button>
-            </Group>
+            {/* Back button */}
+            <Button variant="outline" onClick={() => navigate('/')}>
+                Continue Shopping
+            </Button>
         </Container>
     )
 }
