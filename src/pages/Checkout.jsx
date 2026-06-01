@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { Container, Title, Text, Loader, Center, Card, Stack, Group, Button, Divider, Alert } from '@mantine/core'
 import { loadStripe } from '@stripe/stripe-js'
 import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js'
-import { getCartItems, calculateCartTotal, clearCart } from '../services/cart'
+import { getCartItems, calculateCartTotal } from '../services/cart'
+import { createOrder } from '../services/orders'
 import { supabase } from '../lib/supabase'
 
 // Load Stripe outside of component to avoid recreating on every render
@@ -105,8 +106,13 @@ function Checkout() {
 
     // Handle successful payment
     const handlePaymentSuccess = async () => {
-        await clearCart()
-        navigate('/order-confirmation')
+        try {
+            await createOrder()
+            navigate('/order-confirmation')
+        } catch (err) {
+            console.error('Failed to create order:', err)
+            navigate('/order-confirmation')
+        }
     }
 
     // Loading state
