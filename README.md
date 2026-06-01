@@ -11,7 +11,7 @@
 * [Future Enhancements](#future-enhancements)
 
 ## Project Overview
-This repository houses a prototype React/Vite e-commerce webapp for North Seattle College, designed to showcase and sell official apparel, accessories, and branded merchandise. Built as a multi-phase capstone project.
+This repository houses a prototype React/Vite e-commerce webapp, designed to showcase and sell apparel, accessories, and other merchandise. Built as a multi-phase capstone project.
 
 This project includes:
 * A React + Vite frontend with Mantine UI components
