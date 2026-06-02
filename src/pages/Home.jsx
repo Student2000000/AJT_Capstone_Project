@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import { Container, Title, Text, Loader, Center, ActionIcon, Flex } from '@mantine/core'
 import { getProducts } from '../services/products'
 import { FaShoppingCart } from 'react-icons/fa';
@@ -15,6 +15,9 @@ function Home() {
 
     const [cartOpened, setCartOpened] = useState(false);
 
+    // Filter state - 'all' shows all products
+    const [selectedCategory, setSelectedCategory] = useState('all');
+
     // Fetch products from Supabase on page load
     useEffect(() => {
         const fetchProducts = async () => {
@@ -29,6 +32,14 @@ function Home() {
 
         fetchProducts()
     }, [])
+
+    // Filter products by selected category
+    const filteredProducts = useMemo(() => {
+        if (selectedCategory === 'all') {
+            return products;
+        }
+        return products.filter(product => product.category === selectedCategory);
+    }, [products, selectedCategory]);
 
     // Show loading spinner while fetching
     if (loading) {
@@ -57,14 +68,14 @@ function Home() {
         <Container size="lg" py="xl">
 
             {/*Button for cart side pannel*/}
-            <ActionIcon 
+            <ActionIcon
                 variant="filled"
                 size="lg"
                 pos="absolute"
                 top={10}
                 right={10}
                 data-testid="cart-button"
-     
+
                 onClick={() => setCartOpened(true)}
             >
                 <FaShoppingCart size={18} />
@@ -78,16 +89,16 @@ function Home() {
             {/* order={1} renders as h1, mb="xs" adds small margin-bottom */}
             <Title order={1} mb="xs">Featured Products</Title>
             {/* c="dimmed" sets gray text, mb="xl" adds large margin-bottom */}
-            <Text c="dimmed" mb="xl">Show your school spirit with our exclusive collection</Text>
+            <Text c="dimmed" mb="xl">Shop our exclusive collection</Text>
 
             {/*Catagory Filter*/}
-            <CategoryFilter> </CategoryFilter>
+            <CategoryFilter selectedCategory={selectedCategory} onCategoryChange={setSelectedCategory} />
 
             {/*Search bar*/}
-            <SearchBar> </SearchBar>
-        
+            <SearchBar products={products} />
+
             {/* Product grid */}
-            <ProductGrid products={products} />
+            <ProductGrid products={filteredProducts} />
         </Container>
     )
 }

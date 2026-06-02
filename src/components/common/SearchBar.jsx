@@ -1,6 +1,17 @@
 import { Autocomplete } from '@mantine/core';
+import { useNavigate } from 'react-router-dom';
 
-function SearchBar() {
+function SearchBar({ products }) {
+
+    const navigate = useNavigate();
+
+    // Handle when user selects a product from dropdown
+    const handleSelect = (value) => {
+        const selected = products.find(p => p.name === value);
+        if (selected) {
+            navigate(`/product/${selected.id}`);
+        }
+    };
 
     return (
         <Autocomplete shadow="sm" padding="lg" radius="md"
@@ -10,12 +21,24 @@ function SearchBar() {
             label="Search Products:"
             /*what will exist in the textbox before the use types anything.*/
             placeholder="Search..."
-            /*Entered everything manually for now*/
-            data={['Classic Hoodie', 'Crewneck Sweatshirt', 'T-Shirt', 'Water Bottle', 'Laptop Sticker Pack', 'Lanyard', 'Tote Bag', 'Beanie', 'Baseball Cap', 'Notebook', 'Pen Set', 'Coffee Mug']}
+            /*Now using products from database instead of hardcoded list*/
+            data={(products || []).map(p => p.name)}
+            /*Navigate to product page when selected*/
+            onOptionSubmit={handleSelect}
             /*Makes sure that clicking the icon passes the focus through the input feild*/
             leftSectionPointerEvents="none"
             /*Somehow adds theme based med padding to the bottom only??*/
             pb="md"
+            /*Only matches from start of words, not middle*/
+            filter={({ options, search }) =>
+                options.filter(option =>
+                    option.value.toLowerCase().split(' ').some(word =>
+                        word.startsWith(search.toLowerCase())
+                    )
+                )
+            }
+            /*Adds shadow to dropdown for better visibility*/
+            comboboxProps={{ shadow: 'md' }}
         />
     );
 }

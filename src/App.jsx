@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route, useParams } from 'react-router-dom'
 import Home from './pages/Home'
 import ProductView from './pages/ProductView'
+import Checkout from './pages/Checkout'
+import OrderConfirmation from './pages/OrderConfirmation'
 
 // Wrapper component that passes the product ID as a key
 // When the key changes, React fully remounts ProductView with fresh state
@@ -23,6 +25,12 @@ function App() {
                 {/* :id is a URL parameter - captures the product ID */}
                 {/* e.g., /product/abc-123 makes id="abc-123" */}
                 <Route path="/product/:id" element={<ProductViewWrapper />} />
+
+                {/* Checkout page */}
+                <Route path="/checkout" element={<Checkout />} />
+
+                {/* Order Confirmation page */}
+                <Route path="/order-confirmation" element={<OrderConfirmation />} />
             </Routes>
         </BrowserRouter>
     )
