@@ -13,7 +13,7 @@ describe('Home Page', () => {
         // cy.contains() finds an element containing the specified text
         // .should('be.visible') asserts that element is visible on screen
         cy.contains('Featured Products').should('be.visible')
-        cy.contains('Show your school spirit with our exclusive collection').should('be.visible')
+        cy.contains('Shop our exclusive collection').should('be.visible')
     })
 
     it('displays product cards after loading', () => {
