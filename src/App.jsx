@@ -3,6 +3,7 @@ import Home from './pages/Home'
 import ProductView from './pages/ProductView'
 import Checkout from './pages/Checkout'
 import OrderConfirmation from './pages/OrderConfirmation'
+import Admin from './pages/Admin'
 
 // Wrapper component that passes the product ID as a key
 // When the key changes, React fully remounts ProductView with fresh state
@@ -31,6 +32,9 @@ function App() {
 
                 {/* Order Confirmation page */}
                 <Route path="/order-confirmation" element={<OrderConfirmation />} />
+
+                {/* Mock Admin page */}
+                <Route path="/admin" element={<Admin />} />
             </Routes>
         </BrowserRouter>
     )
