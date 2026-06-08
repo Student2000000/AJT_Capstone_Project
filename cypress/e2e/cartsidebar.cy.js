@@ -3,6 +3,12 @@ describe('Cart Side Bar', () => {
         // Starting at the homepage
         cy.visit('/'); 
 
+        // Add a product with size/color variants to cart
+        cy.contains('[data-testid="product-card"]', 'Hoodie').click()
+        // "You May Also Like" appears at bottom of ProductView, so if visible, page is fully loaded
+        cy.contains('You May Also Like').should('be.visible')
+        cy.contains('button', 'Add to Cart').click()
+
         cy.get('[data-testid="cart-button"]').click();
     })
 
