@@ -66,26 +66,6 @@ function Home() {
 
     return (
         <Container size="lg" py="xl">
-
-            {/*Button for cart side pannel*/}
-            <ActionIcon
-                variant="filled"
-                size="lg"
-                pos="absolute"
-                top={10}
-                right={10}
-                data-testid="cart-button"
-
-                onClick={() => setCartOpened(true)}
-            >
-                <FaShoppingCart size={18} />
-            </ActionIcon>
-
-            <CartSidebar
-                opened={cartOpened}
-                onClose={() => setCartOpened(false)}
-            />
-
             {/* order={1} renders as h1, mb="xs" adds small margin-bottom */}
             <Title order={1} mb="xs">Featured Products</Title>
             {/* c="dimmed" sets gray text, mb="xl" adds large margin-bottom */}

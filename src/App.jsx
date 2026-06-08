@@ -3,6 +3,8 @@ import Home from './pages/Home'
 import ProductView from './pages/ProductView'
 import Checkout from './pages/Checkout'
 import OrderConfirmation from './pages/OrderConfirmation'
+import OrderHistory from './pages/OrderHistory'
+import Navbar from './components/common/Navbar'
 
 // Wrapper component that passes the product ID as a key
 // When the key changes, React fully remounts ProductView with fresh state
@@ -16,6 +18,9 @@ function App() {
     return (
         // BrowserRouter enables client-side routing
         <BrowserRouter>
+            {/* Navbar appears on all pages */}
+            <Navbar />
+
             {/* Routes contains all route definitions */}
             <Routes>
                 {/* Route maps a URL path to a component */}
@@ -31,6 +36,9 @@ function App() {
 
                 {/* Order Confirmation page */}
                 <Route path="/order-confirmation" element={<OrderConfirmation />} />
+
+                {/* Order History page */}
+                <Route path="/orders" element={<OrderHistory />} />
             </Routes>
         </BrowserRouter>
     )
