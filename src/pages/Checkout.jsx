@@ -151,7 +151,7 @@ function Checkout() {
             <Title order={1} mb="xl">Checkout</Title>
 
             {/* Order Summary */}
-            <Card withBorder padding="lg" radius="md" mb="lg">
+            <Card withBorder padding="lg" radius="md" mb="lg" shadow="sm">
                 <Title order={3} mb="md">Order Summary</Title>
 
                 <Stack gap="sm">
@@ -182,7 +182,7 @@ function Checkout() {
             </Card>
 
             {/* Payment section */}
-            <Card withBorder padding="lg" radius="md" mb="lg">
+            <Card withBorder padding="lg" radius="md" mb="lg" shadow="sm">
                 <Title order={3} mb="md">Payment</Title>
                 <Text c="dimmed" size="sm" mb="md">
                     Test mode — use card 4242 4242 4242 4242

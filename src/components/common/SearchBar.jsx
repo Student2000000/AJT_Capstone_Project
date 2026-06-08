@@ -1,4 +1,4 @@
-import { Autocomplete } from '@mantine/core';
+import { Autocomplete, Text, Box } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 
 function SearchBar({ products }) {
@@ -14,11 +14,13 @@ function SearchBar({ products }) {
     };
 
     return (
-        <Autocomplete shadow="sm" padding="lg" radius="md"
+        <Box pb="md">
+            <Text size="sm" fw={500} ta="left">
+                Search Products:
+            </Text>
+            <Autocomplete shadow="sm" padding="lg" radius="md"
             /*for Cypress*/
             data-testid="search-bar"
-            /*Search for products*/
-            label="Search Products:"
             /*what will exist in the textbox before the use types anything.*/
             placeholder="Search..."
             /*Now using products from database instead of hardcoded list*/
@@ -27,8 +29,6 @@ function SearchBar({ products }) {
             onOptionSubmit={handleSelect}
             /*Makes sure that clicking the icon passes the focus through the input feild*/
             leftSectionPointerEvents="none"
-            /*Somehow adds theme based med padding to the bottom only??*/
-            pb="md"
             /*Only matches from start of words, not middle*/
             filter={({ options, search }) =>
                 options.filter(option =>
@@ -40,6 +40,7 @@ function SearchBar({ products }) {
             /*Adds shadow to dropdown for better visibility*/
             comboboxProps={{ shadow: 'md' }}
         />
+        </Box>
     );
 }
 export default SearchBar;

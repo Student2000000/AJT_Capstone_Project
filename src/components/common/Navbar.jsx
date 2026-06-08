@@ -1,12 +1,11 @@
 import { Group, ActionIcon, Container, Title, Box } from '@mantine/core'
-import { useNavigate, useLocation } from 'react-router-dom'
-import { FaHome, FaShoppingCart, FaReceipt } from 'react-icons/fa'
+import { useNavigate } from 'react-router-dom'
+import { FaShoppingCart, FaReceipt } from 'react-icons/fa'
 import { useState } from 'react'
 import CartSidebar from '../cart/CartSidebar'
 
 function Navbar() {
     const navigate = useNavigate()
-    const location = useLocation()
     const [cartOpened, setCartOpened] = useState(false)
 
     return (
@@ -25,18 +24,6 @@ function Navbar() {
 
                         {/* Navigation icons */}
                         <Group gap="sm">
-                            {/* Home button - only show if not on home page */}
-                            {location.pathname !== '/' && (
-                                <ActionIcon
-                                    variant="filled"
-                                    size="lg"
-                                    onClick={() => navigate('/')}
-                                    title="Home"
-                                >
-                                    <FaHome size={18} />
-                                </ActionIcon>
-                            )}
-
                             {/* Order history button */}
                             <ActionIcon
                                 variant="filled"
