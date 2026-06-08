@@ -1,18 +1,14 @@
 import { useEffect, useState, useMemo } from 'react'
 import { Container, Title, Text, Loader, Center, Group } from '@mantine/core'
 import { getProducts } from '../services/products'
-
 import ProductGrid from '../components/product/ProductGrid'
 import CategoryFilter from '../components/common/CategoryFilter'
 import SearchBar from '../components/common/SearchBar'
-import CartSidebar from '../components/cart/CartSidebar';
 
 function Home() {
     const [products, setProducts] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
-
-    const [cartOpened, setCartOpened] = useState(false);
 
     // Filter state - 'all' shows all products
     const [selectedCategory, setSelectedCategory] = useState('all');
