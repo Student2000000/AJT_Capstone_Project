@@ -1,4 +1,4 @@
-import { Autocomplete, Text, Box } from '@mantine/core';
+import { Autocomplete } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 
 function SearchBar({ products }) {
@@ -14,11 +14,12 @@ function SearchBar({ products }) {
     };
 
     return (
-        <Box pb="md">
-            <Text size="sm" fw={500} ta="left">
-                Search Products:
-            </Text>
-            <Autocomplete shadow="sm" padding="lg" radius="md"
+        <Autocomplete
+            /* Responsive width: 200px mobile, 250px tablet, 350px desktop */
+            w={{ base: 200, sm: 250, md: 350 }}
+            shadow="sm"
+            padding="lg"
+            radius="md"
             /*for Cypress*/
             data-testid="search-bar"
             /*what will exist in the textbox before the use types anything.*/
@@ -40,7 +41,6 @@ function SearchBar({ products }) {
             /*Adds shadow to dropdown for better visibility*/
             comboboxProps={{ shadow: 'md' }}
         />
-        </Box>
     );
 }
 export default SearchBar;

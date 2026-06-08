@@ -1,7 +1,6 @@
 import { useEffect, useState, useMemo } from 'react'
-import { Container, Title, Text, Loader, Center, ActionIcon, Flex } from '@mantine/core'
+import { Container, Title, Text, Loader, Center, Group } from '@mantine/core'
 import { getProducts } from '../services/products'
-import { FaShoppingCart } from 'react-icons/fa';
 
 import ProductGrid from '../components/product/ProductGrid'
 import CategoryFilter from '../components/common/CategoryFilter'
@@ -71,11 +70,11 @@ function Home() {
             {/* c="dimmed" sets gray text, mb="xl" adds large margin-bottom */}
             <Text c="dimmed" mb="xl">Shop our exclusive collection</Text>
 
-            {/*Catagory Filter*/}
-            <CategoryFilter selectedCategory={selectedCategory} onCategoryChange={setSelectedCategory} />
-
-            {/*Search bar*/}
-            <SearchBar products={products} />
+            {/* Filter and Search row */}
+            <Group justify="space-between" align="center" mb="lg">
+                <CategoryFilter selectedCategory={selectedCategory} onCategoryChange={setSelectedCategory} />
+                <SearchBar products={products} />
+            </Group>
 
             {/* Product grid */}
             <ProductGrid products={filteredProducts} />
