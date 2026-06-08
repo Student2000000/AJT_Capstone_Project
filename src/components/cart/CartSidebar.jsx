@@ -33,6 +33,8 @@ export default function CartSidebar({ opened, onClose }) {
                     ? { ...item, quantity: newQuantity }
                     : item
             ));
+            // Notify other components that cart changed
+            window.dispatchEvent(new Event('cart-updated'));
         } catch (err) {
             console.error('Error updating quantity:', err);
         }
@@ -43,6 +45,8 @@ export default function CartSidebar({ opened, onClose }) {
         try {
             await removeFromCart(cartItemId);
             setItems(items.filter(item => item.id !== cartItemId));
+            // Notify other components that cart changed
+            window.dispatchEvent(new Event('cart-updated'));
         } catch (err) {
             console.error('Error removing item:', err);
         }
