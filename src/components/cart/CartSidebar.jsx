@@ -65,7 +65,7 @@ export default function CartSidebar({ opened, onClose }) {
             <Drawer
                 opened={opened}
                 onClose={onClose}
-                title="Your Cart"
+                title={<Text size="xl" fw={700} style={{ color: 'var(--color-primary-dark)' }}>Your Cart</Text>}
                 position='right'
                 padding={"md"}
             >
@@ -88,8 +88,8 @@ export default function CartSidebar({ opened, onClose }) {
                 {items.length > 0 && (
                     <>
                         <Divider my="sm" />
-                        <Group justify="space-between" mb="md">
-                            <Text fw={500}>Total</Text>
+                        <Group justify="space-between" mb="md" style={{ color: 'var(--color-primary-dark)' }}>
+                            <Text fw={700} size="lg">Total</Text>
                             <Text fw={700} size="lg">${total.toFixed(2)}</Text>
                         </Group>
                         <Button fullWidth onClick={handleCheckout}>

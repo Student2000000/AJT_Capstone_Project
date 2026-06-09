@@ -2,7 +2,6 @@ import { Card, Text, Group, ActionIcon } from '@mantine/core'
 import { FaMinus, FaPlus, FaTrash } from 'react-icons/fa'
 
 export default function CartCard({ item, onUpdateQuantity, onRemove }) {
-    //abriveated formatting from ProductCard.jsx
     return (
         <Card
             shadow="md"
@@ -14,28 +13,32 @@ export default function CartCard({ item, onUpdateQuantity, onRemove }) {
 
             {/* Cart Product name */}
             {/* fw={500} sets font-weight (medium bold) */}
-            <Text fw={500} size="lg" mt={4} data-testid="cart-product-name">
+            <Text fw={500} size="lg" mt={4} data-testid="cart-product-name" style={{ color: 'var(--color-primary-dark)' }}>
                 {item.products.name}
             </Text>
 
-            {/* Cart Product Price - shows breakdown only when qty > 1 */}
-            <Text c="dark" size="md" mt={4} data-testid="cart-product-price">
-                {item.quantity > 1
-                    ? `$${item.products.price.toFixed(2)} × ${item.quantity} = $${(item.products.price * item.quantity).toFixed(2)}`
-                    : `$${item.products.price.toFixed(2)}`
-                }
+            {/* Cart Product Price */}
+            <Text size="md" mt={4} data-testid="cart-product-price" style={{ color: 'var(--color-primary-dark)' }}>
+                ${item.products.price.toFixed(2)}
             </Text>
+
+            {/* Line total - only show when qty > 1 */}
+            {item.quantity > 1 && (
+                <Text c="dimmed" size="sm">
+                    ${(item.products.price * item.quantity).toFixed(2)} total
+                </Text>
+            )}
 
             {/* Cart Product Color - only show if exists */}
             {item.product_variants.color && (
-                <Text c="dark" size="md" mt={4} data-testid="cart-product-color">
+                <Text size="md" mt={4} data-testid="cart-product-color" style={{ color: 'var(--color-primary-dark)' }}>
                     Color: {item.product_variants.color}
                 </Text>
             )}
 
             {/* Cart Product Size - only show if exists */}
             {item.product_variants.size && (
-                <Text c="dark" size="md" mt={4} data-testid="cart-product-size">
+                <Text size="md" mt={4} data-testid="cart-product-size" style={{ color: 'var(--color-primary-dark)' }}>
                     Size: {item.product_variants.size}
                 </Text>
             )}
