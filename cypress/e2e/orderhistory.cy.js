@@ -31,7 +31,7 @@ describe('Order History Page', () => {
     })
 
     it('can navigate back to home from order history', () => {
-        cy.contains('Name').click()
+        cy.contains('L E A P').click()
         cy.url().should('eq', 'http://localhost:5173/')
     })
 })

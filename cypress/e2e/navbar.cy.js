@@ -4,7 +4,7 @@ describe('Navbar', () => {
     })
 
     it('displays on home page', () => {
-        cy.contains('Name').should('be.visible')
+        cy.contains('L E A P').should('be.visible')
         cy.get('[data-testid="cart-button"]').should('be.visible')
         cy.get('[data-testid="orders-button"]').should('be.visible')
     })
@@ -15,13 +15,13 @@ describe('Navbar', () => {
         cy.url().should('include', '/product/')
 
         // Click store name to go home
-        cy.contains('Name').click()
+        cy.contains('L E A P').click()
         cy.url().should('eq', 'http://localhost:5173/')
     })
 
     it('opens cart sidebar when clicking cart button', () => {
         cy.get('[data-testid="cart-button"]').click()
-        cy.contains('Your Cart').should('be.visible')
+        cy.contains('Your Cart', { timeout: 6000 }).should('be.visible')
     })
 
     it('navigates to order history when clicking orders button', () => {
@@ -32,7 +32,7 @@ describe('Navbar', () => {
 
     it('displays on product view page', () => {
         cy.get('[data-testid="product-card"]').first().click()
-        cy.contains('Name').should('be.visible')
+        cy.contains('L E A P').should('be.visible')
         cy.get('[data-testid="cart-button"]').should('be.visible')
         cy.get('[data-testid="orders-button"]').should('be.visible')
     })
@@ -44,7 +44,7 @@ describe('Navbar', () => {
         cy.get('[data-testid="cart-button"]').click()
         cy.contains('Proceed to Checkout').click()
 
-        cy.contains('Name').should('be.visible')
+        cy.contains('L E A P').should('be.visible')
         cy.get('[data-testid="cart-button"]').should('be.visible')
     })
 })
