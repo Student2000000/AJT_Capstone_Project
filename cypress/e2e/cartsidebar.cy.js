@@ -10,10 +10,12 @@ describe('Cart Side Bar', () => {
         cy.contains('button', 'Add to Cart').click()
 
         cy.get('[data-testid="cart-button"]').click();
+        // Wait for cart sidebar to open
+        cy.contains('Your Cart', { timeout: 6000 }).should('be.visible')
     })
 
     it('displays product information on each card card', () => {
-        cy.get('[data-testid="cart-card"]')
+        cy.get('[data-testid="cart-card"]', { timeout: 6000 })
             .should('exist');
 
         // .first() gets only the first matching element
