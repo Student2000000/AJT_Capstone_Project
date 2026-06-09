@@ -5,7 +5,7 @@ export default function CartCard({ item, onUpdateQuantity, onRemove }) {
     //abriveated formatting from ProductCard.jsx
     return (
         <Card
-            shadow="sm"
+            shadow="md"
             padding="lg"
             radius="md"
             withBorder
@@ -67,7 +67,7 @@ export default function CartCard({ item, onUpdateQuantity, onRemove }) {
                 <ActionIcon
                     size="sm"
                     variant="outline"
-                    color="red"
+                    color="var(--color-out-of-stock)"
                     onClick={() => onRemove(item.id)}
                 >
                     <FaTrash size={10} />

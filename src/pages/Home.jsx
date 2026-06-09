@@ -62,9 +62,9 @@ function Home() {
     return (
         <Container size="lg" py="xl">
             {/* order={1} renders as h1, mb="xs" adds small margin-bottom */}
-            <Title order={1} mb="xs">Featured Products</Title>
-            {/* c="dimmed" sets gray text, mb="xl" adds large margin-bottom */}
-            <Text c="dimmed" mb="xl">Shop our exclusive collection</Text>
+            <Title order={1} mb="xs" style={{ color: 'var(--color-primary-dark)' }}>Featured Products</Title>
+            {/* mb="xl" adds large margin-bottom */}
+            <Text mb="xl" style={{ color: 'var(--color-primary)' }}>Shop our exclusive collection</Text>
 
             {/* Filter and Search row */}
             <Group justify="space-between" align="center" mb="lg">

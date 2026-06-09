@@ -10,16 +10,19 @@ function Navbar() {
 
     return (
         <>
-            <Box style={{ borderBottom: '1px solid #dee2e6', backgroundColor: '#f8f9fa' }}>
+            <Box style={{
+                borderBottom: '1px solid var(--color-border)',
+                backgroundColor: 'var(--color-navbar-bg)'
+            }}>
                 <Container size="lg" py="sm">
                     <Group justify="space-between">
                         {/* Store title - clickable to go home */}
                         <Title
                             order={3}
-                            style={{ cursor: 'pointer' }}
+                            style={{ cursor: 'pointer', color: 'var(--color-primary-dark)' }}
                             onClick={() => navigate('/')}
                         >
-                            Name
+                            L E A P
                         </Title>
 
                         {/* Navigation icons */}

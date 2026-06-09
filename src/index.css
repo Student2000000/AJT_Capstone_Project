@@ -1,4 +1,25 @@
-/* Global styles for NSC Merch Store */
+/* Global styles and color variables */
+
+:root {
+    /* Primary palette - update these to change colors site-wide */
+    --color-primary: #6b7d48;
+    --color-primary-dark: #5A5F43;
+    --color-primary-light: #DEE9B1;
+    --color-dark: #1C1C1C;
+    --color-border: #6b7d48;
+    --color-border-light: #dee2e6;
+
+    /* Navbar background color */
+    --color-navbar-bg: #DEE9B1; /* Uses primary-light, but can be completely different */
+
+    /* Stock status colors */
+    --color-low-stock: #e8a854;
+    --color-out-of-stock: #c45c5c;
+
+    /* Order history status badge color */
+    --color-status-paid: #a5ba73; /* Uses forest.4/medium from main.jsx, but can be changed to something else */
+}
+
 
 body {
   /* Removes default browser spacing around page edges */
@@ -6,6 +27,9 @@ body {
 
   /* Sets default font with fallback if unavailable */
   font-family: system-ui, sans-serif;
+
+  /* Light tint background for visual warmth */
+  background-color: #f5f5f5;
 }
 
 #root {

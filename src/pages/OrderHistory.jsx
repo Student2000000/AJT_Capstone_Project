@@ -52,7 +52,7 @@ function OrderHistory() {
 
     return (
         <Container size="md" py="xl">
-            <Title order={1} mb="xl">Order History</Title>
+            <Title order={1} mb="xl" style={{ color: 'var(--color-primary-dark)' }}>Order History</Title>
 
             {orders.length === 0 ? (
                 <Text c="dimmed">No orders yet.</Text>
@@ -64,7 +64,7 @@ function OrderHistory() {
                             withBorder
                             padding="lg"
                             radius="md"
-                            shadow="sm"
+                            shadow="md"
                         >
                             {/* Order header */}
                             <Group justify="space-between" mb="md">
@@ -77,10 +77,10 @@ function OrderHistory() {
                                     </Text>
                                 </div>
                                 <Group gap="sm">
-                                    <Badge color="green" size="lg">
+                                    <Badge style={{ backgroundColor: 'var(--color-status-paid)' }} size="lg">
                                         {order.status.toUpperCase()}
                                     </Badge>
-                                    <Text fw={700} size="lg">
+                                    <Text fw={700} size="lg" style={{ color: 'var(--color-primary-dark)' }}>
                                         ${order.total.toFixed(2)}
                                     </Text>
                                 </Group>
@@ -103,7 +103,7 @@ function OrderHistory() {
 
                                         {/* Product details */}
                                         <div style={{ flex: 1 }}>
-                                            <Text size="sm" fw={500}>
+                                            <Text size="sm" fw={500} style={{ color: 'var(--color-primary-dark)' }}>
                                                 {item.products.name}
                                             </Text>
                                             <Text size="xs" c="dimmed">
@@ -115,7 +115,7 @@ function OrderHistory() {
                                         </div>
 
                                         {/* Item price */}
-                                        <Text size="sm">
+                                        <Text size="sm" style={{ color: 'var(--color-primary-dark)' }}>
                                             ${(item.price_at_purchase * item.quantity).toFixed(2)}
                                         </Text>
                                     </Group>

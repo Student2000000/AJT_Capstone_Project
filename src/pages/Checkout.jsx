@@ -148,11 +148,11 @@ function Checkout() {
 
     return (
         <Container size="sm" py="xl">
-            <Title order={1} mb="xl">Checkout</Title>
+            <Title order={1} mb="xl" style={{ color: 'var(--color-primary-dark)' }}>Checkout</Title>
 
             {/* Order Summary */}
-            <Card withBorder padding="lg" radius="md" mb="lg" shadow="sm">
-                <Title order={3} mb="md">Order Summary</Title>
+            <Card withBorder padding="lg" radius="md" mb="lg" shadow="md">
+                <Title order={3} mb="md" style={{ color: 'var(--color-primary-dark)' }}>Order Summary</Title>
 
                 <Stack gap="sm">
                     {cartItems.map(item => (
@@ -176,14 +176,14 @@ function Checkout() {
                 <Divider my="md" />
 
                 <Group justify="space-between">
-                    <Text fw={600}>Total</Text>
-                    <Text fw={700} size="lg">${total.toFixed(2)}</Text>
+                    <Text fw={600} style={{ color: 'var(--color-primary-dark)' }}>Total</Text>
+                    <Text fw={700} size="lg" style={{ color: 'var(--color-primary-dark)' }}>${total.toFixed(2)}</Text>
                 </Group>
             </Card>
 
             {/* Payment section */}
-            <Card withBorder padding="lg" radius="md" mb="lg" shadow="sm">
-                <Title order={3} mb="md">Payment</Title>
+            <Card withBorder padding="lg" radius="md" mb="lg" shadow="md">
+                <Title order={3} mb="md" style={{ color: 'var(--color-primary-dark)' }}>Payment</Title>
                 <Text c="dimmed" size="sm" mb="md">
                     Test mode — use card 4242 4242 4242 4242
                 </Text>

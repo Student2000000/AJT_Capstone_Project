@@ -18,7 +18,7 @@ function ProductCard({ product }) {
         // shadow="sm" adds subtle box shadow, padding="lg" adds inner spacing
         // radius="md" rounds corners, withBorder adds 1px border
         <Card
-            shadow="sm"
+            shadow="md"
             padding="lg"
             radius="md"
             withBorder
@@ -49,19 +49,19 @@ function ProductCard({ product }) {
 
             {/* Product name */}
             {/* fw={500} sets font-weight (medium bold) */}
-            <Text fw={500} size="lg" mt={4} data-testid="product-name">
+            <Text fw={500} size="lg" mt={4} data-testid="product-name" style={{ color: 'var(--color-primary-dark)' }}>
                 {product.name}
             </Text>
 
             {/* Price */}
             {/* mt={4} adds 4px margin-top (can use numbers or size strings) */}
-            <Text c="dark" size="md" mt={4} data-testid="product-price">
+            <Text size="md" mt={4} data-testid="product-price" style={{ color: 'var(--color-primary-dark)' }}>
                 ${product.price}
             </Text>
 
             {/* Stock badge - only show if completely out of stock */}
             {outOfStock && (
-                <Badge mt="sm" color="red" data-testid="stock-badge">
+                <Badge mt="sm" style={{ backgroundColor: 'var(--color-out-of-stock)' }} data-testid="stock-badge">
                     Out of Stock
                 </Badge>
             )}

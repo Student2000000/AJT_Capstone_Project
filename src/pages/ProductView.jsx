@@ -137,11 +137,11 @@ function ProductView() {
         const stock = selectedVariant.inventory_count
 
         if (stock === 0) {
-            return { color: 'red', label: 'Out of Stock' }
+            return { color: 'var(--color-out-of-stock)', label: 'Out of Stock' }
         } else if (!canAddToCart) {
-            return { color: 'red', label: 'Max quantity in cart' }
+            return { color: 'var(--color-out-of-stock)', label: 'Max quantity in cart' }
         } else if (stock <= 5) {
-            return { color: 'yellow', label: `Only ${stock} left` }
+            return { color: 'var(--color-low-stock)', label: `Only ${stock} left` }
         }
         return null // In stock (6+), no badge needed
     }
@@ -201,7 +201,7 @@ function ProductView() {
 
                     {/* Stock indicator - only shows for low/out of stock */}
                     {stockStatus && (
-                        <Badge color={stockStatus.color} size="lg" mt="md">
+                        <Badge style={{ backgroundColor: stockStatus.color }} size="lg" mt="md">
                             {stockStatus.label}
                         </Badge>
                     )}

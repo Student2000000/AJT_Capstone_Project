@@ -47,8 +47,8 @@ function ProductGallery({ product }) {
                             style={{
                                 cursor: 'pointer',
                                 border: selectedIndex === index
-                                    ? '2px solid #228be6'
-                                    : '1px solid #dee2e6',
+                                    ? '2px solid var(--color-primary)'
+                                    : '1px solid var(--color-border-light)',
                                 opacity: selectedIndex === index ? 1 : 0.7
                             }}
                             onClick={() => setSelectedIndex(index)}
