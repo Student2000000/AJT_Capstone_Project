@@ -55,7 +55,7 @@ export default function CartCard({ item, onUpdateQuantity, onRemove }) {
                         <FaMinus size={10} />
                     </ActionIcon>
 
-                    <Text size="sm" fw={500}>{item.quantity}</Text>
+                    <Text size="sm" fw={500} style={{ color: 'var(--color-primary-dark)' }}>{item.quantity}</Text>
 
                     <ActionIcon
                         size="sm"

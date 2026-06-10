@@ -121,6 +121,8 @@ function ProductView() {
                     return [...prev, { variant_id: selectedVariant.id, quantity: 1 }]
                 }
             })
+            // Notify other components that cart changed
+            window.dispatchEvent(new Event('cart-updated'))
             setAddedMessage('Added to cart!')
             // Clear message after 2 seconds
             setTimeout(() => setAddedMessage(null), 2000)

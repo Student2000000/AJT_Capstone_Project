@@ -1,12 +1,45 @@
-import { Group, ActionIcon, Container, Title, Box } from '@mantine/core'
+import { Group, ActionIcon, Container, Title, Box, Indicator } from '@mantine/core'
 import { useNavigate } from 'react-router-dom'
 import { FaShoppingCart, FaReceipt } from 'react-icons/fa'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import CartSidebar from '../cart/CartSidebar'
+import { getCartItems } from '../../services/cart'
 
 function Navbar() {
     const navigate = useNavigate()
     const [cartOpened, setCartOpened] = useState(false)
+    const [cartCount, setCartCount] = useState(0)
+
+    // Fetch cart count on mount
+    useEffect(() => {
+        const fetchCartCount = async () => {
+            try {
+                const items = await getCartItems()
+                const count = items ? items.length : 0
+                setCartCount(count)
+            } catch (err) {
+                console.error('Failed to fetch cart:', err)
+            }
+        }
+
+        fetchCartCount()
+    }, [])
+
+    // Listen for cart updates
+    useEffect(() => {
+        const handleCartUpdate = async () => {
+            try {
+                const items = await getCartItems()
+                const count = items ? items.length : 0
+                setCartCount(count)
+            } catch (err) {
+                console.error('Failed to fetch cart:', err)
+            }
+        }
+
+        window.addEventListener('cart-updated', handleCartUpdate)
+        return () => window.removeEventListener('cart-updated', handleCartUpdate)
+    }, [])
 
     return (
         <>
@@ -38,16 +71,23 @@ function Navbar() {
                                 <FaReceipt size={18} />
                             </ActionIcon>
 
-                            {/* Cart button */}
-                            <ActionIcon
-                                variant="filled"
-                                size="lg"
-                                onClick={() => setCartOpened(true)}
-                                title="Cart"
-                                data-testid="cart-button"
+                            {/* Cart button with item count indicator */}
+                            <Indicator
+                                label={cartCount}
+                                size={18}
+                                disabled={cartCount === 0}
+                                styles={{ indicator: { '--indicator-color': 'var(--color-cart-indicator)' } }}
                             >
-                                <FaShoppingCart size={18} />
-                            </ActionIcon>
+                                <ActionIcon
+                                    variant="filled"
+                                    size="lg"
+                                    onClick={() => setCartOpened(true)}
+                                    title="Cart"
+                                    data-testid="cart-button"
+                                >
+                                    <FaShoppingCart size={18} />
+                                </ActionIcon>
+                            </Indicator>
                         </Group>
                     </Group>
                 </Container>

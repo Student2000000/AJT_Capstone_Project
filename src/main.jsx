@@ -5,8 +5,11 @@ import '@mantine/core/styles.css'
 import './index.css'
 import App from './App.jsx'
 
-// Colors matching CSS variables in index.css
-// Defined here for Mantine's theme system
+/*
+ * Mantine theme colors - duplicated from index.css
+ * Mantine components can't read CSS variables, so colors are defined in both places.
+ * Update index.css when changing these values.
+ */
 const colors = {
     light: '#DEE9B1',      // --color-primary-light
     primary: '#6b7d48',    // --color-primary

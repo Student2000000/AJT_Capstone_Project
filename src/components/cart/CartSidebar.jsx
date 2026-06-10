@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Drawer, Stack, Text, Button, Divider, Group } from '@mantine/core';
+import { Drawer, Stack, Text, Button, Divider, Group, Badge } from '@mantine/core';
 
 import { getCartItems, updateCartItemQuantity, removeFromCart, calculateCartTotal } from '../../services/cart';
 import CartCard from './CartCard';
@@ -65,13 +65,22 @@ export default function CartSidebar({ opened, onClose }) {
             <Drawer
                 opened={opened}
                 onClose={onClose}
-                title={<Text size="xl" fw={700} style={{ color: 'var(--color-primary-dark)' }}>Your Cart</Text>}
+                title={
+                    <Group gap="xs" align="center">
+                        <Text size="xl" fw={700} style={{ color: 'var(--color-primary-dark)' }}>Your Cart</Text>
+                        {items.length > 0 && (
+                            <Badge size="lg">
+                                {items.length}
+                            </Badge>
+                        )}
+                    </Group>
+                }
                 position='right'
                 padding={"md"}
             >
                 <Stack>
                     {items.length === 0 ? (
-                        <Text>Your cart is empty.</Text>
+                        <Text style={{ color: 'var(--color-primary-dark)' }}>Your cart is empty.</Text>
                     ) : (
                         items.map((item) => (
                             <CartCard
