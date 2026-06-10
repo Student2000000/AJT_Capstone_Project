@@ -12,7 +12,7 @@ function ProductDetails({ product, selectedVariant }) {
 
     return (
         <div>
-            <Text fw={500} mb="sm">Product Details</Text>
+            <Text fw={500} mb="sm" style={{ color: 'var(--color-primary-dark)' }}>Product Details</Text>
 
             {/* Mantine Table structure: Table > Table.Tbody > Table.Tr > Table.Td */}
             {/* Tbody = table body, Tr = table row, Td = table cell */}

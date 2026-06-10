@@ -1,4 +1,32 @@
-/* Global styles for NSC Merch Store */
+/*
+ * CSS variables for use in inline styles and non-Mantine elements.
+ * These values are duplicated in main.jsx for the Mantine theme.
+ * Both must be updated together when changing colors.
+ */
+
+:root {
+    /* Primary palette - update these to change colors site-wide */
+    --color-primary: #6b7d48;       /* forest.6 */
+    --color-primary-dark: #5A5F43;  /* forest.7 */
+    --color-primary-light: #DEE9B1; /* forest.2 */
+    --color-dark: #1C1C1C;          /* forest.9 */
+    --color-border: #6b7d48;        /* forest.6 */
+    --color-border-light: #dee2e6;
+
+    /* Navbar background color */
+    --color-navbar-bg: #DEE9B1; /* forest.2 - can be changed independently */
+
+    /* Cart icon quantity indicator color */
+    --color-cart-indicator: #3d4030; /* forest.8 */
+
+    /* Stock status colors */
+    --color-low-stock: #e8a854;
+    --color-out-of-stock: #c45c5c;
+
+    /* Order history status badge color */
+    --color-status-paid: #a5ba73; /* forest.4 */
+}
+
 
 body {
   /* Removes default browser spacing around page edges */
@@ -6,6 +34,9 @@ body {
 
   /* Sets default font with fallback if unavailable */
   font-family: system-ui, sans-serif;
+
+  /* Light tint background for visual warmth */
+  background-color: #f5f5f5;
 }
 
 #root {

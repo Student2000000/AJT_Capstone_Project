@@ -14,11 +14,14 @@ function SearchBar({ products }) {
     };
 
     return (
-        <Autocomplete shadow="sm" padding="lg" radius="md"
+        <Autocomplete
+            /* Responsive width: 200px mobile, 250px tablet, 350px desktop */
+            w={{ base: 200, sm: 250, md: 350 }}
+            shadow="sm"
+            padding="lg"
+            radius="md"
             /*for Cypress*/
             data-testid="search-bar"
-            /*Search for products*/
-            label="Search Products:"
             /*what will exist in the textbox before the use types anything.*/
             placeholder="Search..."
             /*Now using products from database instead of hardcoded list*/
@@ -27,8 +30,6 @@ function SearchBar({ products }) {
             onOptionSubmit={handleSelect}
             /*Makes sure that clicking the icon passes the focus through the input feild*/
             leftSectionPointerEvents="none"
-            /*Somehow adds theme based med padding to the bottom only??*/
-            pb="md"
             /*Only matches from start of words, not middle*/
             filter={({ options, search }) =>
                 options.filter(option =>
@@ -39,6 +40,11 @@ function SearchBar({ products }) {
             }
             /*Adds shadow to dropdown for better visibility*/
             comboboxProps={{ shadow: 'md' }}
+            /*Custom colors for input text and dropdown options*/
+            styles={{
+                input: { color: 'var(--color-primary-dark)' },
+                option: { color: 'var(--color-primary-dark)' }
+            }}
         />
     );
 }

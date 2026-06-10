@@ -28,7 +28,7 @@ function RelatedProducts({ category, excludeId }) {
 
     return (
         <div>
-            <Title order={3} mb="lg">You May Also Like</Title>
+            <Title order={3} mb="lg" style={{ color: 'var(--color-primary-dark)' }}>You May Also Like</Title>
 
             {/* SimpleGrid displays products in a responsive row */}
             <SimpleGrid

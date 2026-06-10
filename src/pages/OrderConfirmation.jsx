@@ -9,8 +9,8 @@ function OrderConfirmation() {
         <Container size="sm" py="xl">
             <Center>
                 <Stack align="center" gap="md">
-                    <FaCheckCircle size={64} color="green" />
-                    <Title order={1}>Order Confirmed!</Title>
+                    <FaCheckCircle size={64} style={{ color: 'var(--color-status-paid)' }} />
+                    <Title order={1} style={{ color: 'var(--color-primary-dark)' }}>Order Confirmed!</Title>
                     <Text c="dimmed" ta="center">
                         Thank you for your purchase. You'll receive a confirmation email shortly.
                     </Text>

@@ -46,7 +46,6 @@ function ProductOptions({ product, selectedSize, setSelectedSize, selectedColor,
                                 key={size}
                                 // variant changes style: filled (selected) vs outline (not selected)
                                 variant={selectedSize === size ? 'filled' : 'outline'}
-                                color="dark"
                                 size="sm"
                                 onClick={() => setSelectedSize(size)}
                                 // Disable if no stock for this size in any color
@@ -69,11 +68,10 @@ function ProductOptions({ product, selectedSize, setSelectedSize, selectedColor,
                                 key={color}
                                 color={colorMap[color] || '#gray'}
                                 size={36}
-                                // Add border when selected
                                 style={{
                                     cursor: isColorAvailable(color) ? 'pointer' : 'not-allowed',
                                     opacity: isColorAvailable(color) ? 1 : 0.4,
-                                    border: selectedColor === color ? '3px solid #228be6' : '1px solid #dee2e6'
+                                    border: selectedColor === color ? '3px solid var(--color-primary)' : '1px solid var(--color-border-light)'
                                 }}
                                 onClick={() => {
                                     if (isColorAvailable(color)) {

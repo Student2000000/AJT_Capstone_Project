@@ -11,13 +11,13 @@ function ProductInfo({ product }) {
 
             {/* Product name */}
             {/* order={2} renders as h2, fw={600} sets font-weight */}
-            <Title order={2} fw={600} mt="xs">
+            <Title order={2} fw={600} mt="xs" style={{ color: 'var(--color-primary-dark)' }}>
                 {product.name}
             </Title>
 
             {/* Price */}
             {/* size="xl" makes it prominent, fw={500} medium weight */}
-            <Text size="xl" fw={500} mt="sm">
+            <Text size="xl" fw={500} mt="sm" style={{ color: 'var(--color-primary-dark)' }}>
                 ${product.price}
             </Text>
 

@@ -79,12 +79,15 @@ export function isCompletelyOutOfStock(product) {
     return product.variants.every(v => v.inventory_count === 0)
 }
 
-// Get unique sizes from variants
+// Get unique sizes from variants (in increasing order)
 export function getAvailableSizes(variants) {
+    const sizeOrder = ['XS', 'S', 'M', 'L', 'XL', 'XXL']
     const sizes = variants
         .filter(v => v.size !== null)
         .map(v => v.size)
-    return [...new Set(sizes)]
+    return [...new Set(sizes)].sort((a, b) =>
+        sizeOrder.indexOf(a) - sizeOrder.indexOf(b)
+    )
 }
 
 // Get unique colors from variants

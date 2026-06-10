@@ -10,8 +10,7 @@ describe('Checkout Page', () => {
         // Add to cart
         cy.contains('button', 'Add to Cart').click()
 
-        // Go back to Home to access cart button
-        cy.visit('http://localhost:5173')
+        // Open cart sidebar from Navbar
         cy.get('[data-testid="cart-button"]').click()
         cy.contains('Proceed to Checkout').click()
     })
