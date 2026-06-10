@@ -40,6 +40,11 @@ function SearchBar({ products }) {
             }
             /*Adds shadow to dropdown for better visibility*/
             comboboxProps={{ shadow: 'md' }}
+            /*Custom colors for input text and dropdown options*/
+            styles={{
+                input: { color: 'var(--color-primary-dark)' },
+                option: { color: 'var(--color-primary-dark)' }
+            }}
         />
     );
 }
